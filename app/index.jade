@@ -6,13 +6,13 @@ html(ng-app="hanglady")
 
 	body
 
-
 		div(class="container")
-	
+
 			div(class="btn-group", ng-controller="WordCtrl")
 
-
-				div(ng-repeat="letter in splitArray", class="btn well"){{letter}}
+				div(ng-repeat="letter in splitArray", class="btn well")
+					div.front {{letter}}
+					div.back.hidden ?
 
 
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
