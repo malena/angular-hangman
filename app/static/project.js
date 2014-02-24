@@ -5,7 +5,7 @@ $(function() {
 var app = angular.module("hanglady", []);
 
 app.factory("Words", function(){
-	var Words = ["hello", "bye", "sock", "orange"];
+    var Words = ["hello", "bye", "sock", "orange"];
 	return Words;
 });
 
@@ -18,11 +18,6 @@ app.controller("WordCtrl", ["$scope", "Words", function ($scope, Words) {
     $scope.splitArray = splitStringIntoArray($scope.randomWord);
 
     console.log($scope.splitArray);
-
-	angular.forEach(Words, function(value, key){
-
-    });
-
 
     // TODOF: These are general functions that can be re-used
 

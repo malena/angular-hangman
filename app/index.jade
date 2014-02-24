@@ -11,7 +11,8 @@ html(ng-app="hanglady")
 	
 			div(class="btn-group", ng-controller="WordCtrl")
 
-				div.btn.well ?
+
+				div(ng-repeat="letter in splitArray", class="btn well"){{letter}}
 
 
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
