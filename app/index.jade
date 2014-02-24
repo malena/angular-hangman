@@ -1,15 +1,23 @@
-html
+html(ng-app="hanglady")
 	head
-		title Template
+		title Hanglady
+		link(type="text/css", rel="stylesheet", media="screen", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css")
 		link(type="text/css", rel="stylesheet", href="public/dist/project.min.css")
 
 	body
+
+
+		div(class="container")
 	
-	h1 hello! 
+			div(class="btn-group", ng-controller="WordCtrl")
+
+				div.btn.well ?
+
 
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js") 
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.js")
 	script(type="text/javascript", src="public/dist/project.min.js")
+	script(type="text/javascript", src="app/static/project.js")
 
 
