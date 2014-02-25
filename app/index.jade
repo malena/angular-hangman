@@ -9,16 +9,15 @@ html(ng-app="hanglady")
 		div(class="container")
 
 			div(class="btn-group", ng-controller="WordCtrl")
-
-				div(ng-repeat="letter in splitArray", class="btn well")
+				div(ng-repeat="letter in splitArray track by $index", class="btn well")
 					div.front {{letter}}
 					div.back.hidden ?
 
+			div(class="input-group", ng-controller="GuessCtrl")
+				input(type="text", class="guess", ng-model="guess.letter") 
 
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js") 
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.js")
 	script(type="text/javascript", src="public/dist/project.min.js")
 	script(type="text/javascript", src="app/static/project.js")
-
-

@@ -4,24 +4,13 @@ $(function() {
 
 var app = angular.module("hanglady", []);
 
-app.factory("Words", function(){
+app.factory("Word", function(){
+
     var Words = ["hello", "bye", "sock", "orange"];
-	return Words;
-});
-
-app.controller("WordCtrl", ["$scope", "Words", function ($scope, Words) {
-
-	$scope.words = Words;
-
-    $scope.randomWord = getRandomWord($scope.words);
-
-    $scope.splitArray = splitStringIntoArray($scope.randomWord);
-
-    console.log($scope.splitArray);
-
-    // TODOF: These are general functions that can be re-used
+    var Word = getRandomWord(Words);
 
     function getRandomWord (list) {
+
         var random_index = getRandomIndex(list);
 
         if (list[random_index] === undefined){
@@ -33,15 +22,29 @@ app.controller("WordCtrl", ["$scope", "Words", function ($scope, Words) {
     }
 
     function getRandomIndex(list){
+
         var random = Math.round(Math.random() * (list.length) + 0);
         return random;
     }
 
+    return Word;
+
+});
+
+app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word) {
+
+    $scope.randomWord = Word;
+    $scope.splitArray = splitStringIntoArray($scope.randomWord);
+
     function splitStringIntoArray(string){
        return string.split("");
     }
+    console.log($scope.splitArray);
 
+}]);
 
+app.controller("GuessCtrl", ["$scope", "Word", function($scope, Word){
+    console.log("guess ctrl");
 }]);
 
 app.run(function($rootScope){
