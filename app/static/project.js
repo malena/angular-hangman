@@ -31,6 +31,10 @@ app.factory("Word", function(){
 
 });
 
+app.factory("Guess", function($rootScope){
+    var Guess = {letter: "?"};
+});
+
 app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word) {
 
     $scope.randomWord = Word;
@@ -39,12 +43,24 @@ app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word) {
     function splitStringIntoArray(string){
        return string.split("");
     }
-    console.log($scope.splitArray);
 
 }]);
 
-app.controller("GuessCtrl", ["$scope", "Word", function($scope, Word){
-    console.log("guess ctrl");
+app.controller("GuessCtrl", ["$scope", "Guess", "Word", function ($scope, Guess, Word){
+
+    $scope.guess = Guess;
+
+    $scope.$watchCollection('guess', function() {
+
+        if(!$scope.guess || $scope.guess.letter === ""){
+           return false; 
+        } else {
+            console.log('guess has updated!')
+            console.log($scope.guess.letter);
+        }
+    });
+
+
 }]);
 
 app.run(function($rootScope){
