@@ -9,9 +9,9 @@ html(ng-app="hanglady")
 		div(class="container")
 
 			div(class="btn-group", ng-controller="WordCtrl")
-				div(ng-repeat="letter in splitArray track by $index", class="btn well")
-					div.front {{letter}}
-					div.back.hidden ?
+				div(ng-model="Guess", ng-repeat="letter in splitArray track by $index", class="btn well")
+					div(ng-hide="!match", class="front") {{letter}}
+					div(ng-hide="match", class="back") ? 
 
 			div(class="input-group", ng-controller="GuessCtrl")
 				input(type="text", class="guess", ng-model="guess.letter") 

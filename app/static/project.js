@@ -31,11 +31,18 @@ app.factory("Word", function(){
 
 });
 
-app.factory("Guess", function($rootScope){
-    var Guess = {letter: "?"};
+app.factory("Guess", function(){
+    var Guess = {
+        letter: "",
+        match: null,
+    };
+    return Guess;
 });
 
-app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word) {
+app.controller("WordCtrl", ["$scope", "Guess", "Word", function ($scope, Guess, Word) {
+
+    $scope.guess = Guess;
+    $scope.match = false;
 
     $scope.randomWord = Word;
     $scope.splitArray = splitStringIntoArray($scope.randomWord);
@@ -43,6 +50,14 @@ app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word) {
     function splitStringIntoArray(string){
        return string.split("");
     }
+
+    $scope.$watchCollection('guess', function() {
+        if($scope.guess.match == true){
+            $scope.match = true;
+            return $scope.match;
+        }
+
+    });
 
 }]);
 
@@ -53,13 +68,15 @@ app.controller("GuessCtrl", ["$scope", "Guess", "Word", function ($scope, Guess,
     $scope.$watchCollection('guess', function() {
 
         if(!$scope.guess || $scope.guess.letter === ""){
-           return false; 
+            $scope.guess.match = false;
         } else {
-            console.log('guess has updated!')
-            console.log($scope.guess.letter);
+            angular.forEach(Word, function(key){
+                if($scope.guess.letter === key){
+                    $scope.guess.match = true;
+                }
+            });
         }
     });
-
 
 }]);
 
