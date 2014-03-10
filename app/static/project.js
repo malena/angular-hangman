@@ -31,7 +31,7 @@ app.factory("Word", function(){
 
 app.factory("Guess", function(){
     var Guess = {
-        letter: null,
+        letter: "m", 
         index: 0, 
         match: false,
         counter: 0
@@ -45,18 +45,16 @@ app.controller("AppCtrl", ["$scope", "Word", "Guess", function($scope, Word, Gue
 }]);
 
 app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word, Guess) {
-    $scope.word = Word;
 }]);
 
 app.controller("GuessCtrl", ["$scope", "Guess", "Word", function ($scope, Guess, Word){
+    $scope.guess = Guess.letter;
 
-    $scope.word = Word;
-    $scope.guess = Guess;
-    $scope.letter = Guess.letter;
+    $scope.$watchCollection('guess', function() {
+        console.log($scope.guess);
 
-    $scope.$watchCollection('letter', function() {
         angular.forEach($scope.word, function(key,index){
-            if($scope.letter == key){
+            if($scope.guess == key){
                 Word.letter = key;
                 $scope.flip(index);
             }
