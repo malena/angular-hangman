@@ -4,6 +4,11 @@ $(function() {
 
 var app = angular.module("hanglady", ['ngAnimate']);
 
+app.controller("AppCtrl", ["$scope", "Word", "Guess", function($scope, Word, Guess){
+    $scope.word = Word; 
+    $scope.guess = Guess;
+}]);
+
 app.factory("Word", function(){
     var Words = ["hello", "bye", "sock", "orange"];
     var stringWord = getRandomWord(Words);
