@@ -31,43 +31,37 @@ app.factory("Word", function(){
 
 app.factory("Guess", function(){
     var Guess = {
-        letter: "m", 
-        index: 0, 
-        match: false,
-        counter: 0
+        letter: 'm'
     };
     return Guess;
 });
 
-app.controller("AppCtrl", ["$scope", "Word", "Guess", function($scope, Word, Guess){
+app.controller("AppCtrl", ["$rootScope", "$scope", "Word", "Guess", function($rootScope, $scope, Word, Guess){
     $scope.word = Word; 
     $scope.guess = Guess;
+
+    $scope.flip = function(index) {
+        alert('flip');
+        $rootScope.match = true;
+    };
+
 }]);
 
-app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word, Guess) {
+app.controller("WordCtrl", ["$rootScope", "$scope", "Word", function ($rootScope, $scope, Word, Guess) {
 }]);
 
 app.controller("GuessCtrl", ["$scope", "Guess", "Word", function ($scope, Guess, Word){
-    $scope.guess = Guess.letter;
 
-    $scope.$watchCollection('guess', function() {
-        console.log($scope.guess);
-
+    $scope.$watchCollection('guessLetter', function() {
         angular.forEach($scope.word, function(key,index){
-            if($scope.guess == key){
-                Word.letter = key;
+            if($scope.guessLetter == key){
                 $scope.flip(index);
             }
         });
     });
 
-    $scope.flip = function(index) {
-        alert('flip card!' + index);
-        console.log($scope);
-    };
-
 }]);
 
 app.run(function($rootScope){
-   console.log('is this running?')
+    $rootScope.match = false;
 });
