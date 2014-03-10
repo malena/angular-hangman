@@ -10,7 +10,8 @@ html(ng-app="hanglady", ng-controller="AppCtrl")
 
 			div(ng-model="Word", class="btn-group", ng-controller="WordCtrl")
 				div(ng-repeat="letter in word track by $index", class="btn well")
-					div(class="front") ? 
+					div(ng-hide="true", ng-animate="'fade'", class="front") {{letter}}
+					div(ng-hide="false", ng-animate="'fade'", class="back") ? 
 
 			div(class="input-group", ng-controller="GuessCtrl")
 				input(maxlength="1", type="text", class="guess", ng-model="letter") 

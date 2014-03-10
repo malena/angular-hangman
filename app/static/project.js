@@ -4,11 +4,6 @@ $(function() {
 
 var app = angular.module("hanglady", ['ngAnimate']);
 
-app.controller("AppCtrl", ["$scope", "Word", "Guess", function($scope, Word, Guess){
-    $scope.word = Word; 
-    $scope.guess = Guess;
-}]);
-
 app.factory("Word", function(){
     var Words = ["hello", "bye", "sock", "orange"];
     var stringWord = getRandomWord(Words);
@@ -37,20 +32,20 @@ app.factory("Word", function(){
 app.factory("Guess", function(){
     var Guess = {
         letter: null,
+        index: 0, 
         match: false,
-        counter: 0,
-        word: []
+        counter: 0
     };
     return Guess;
 });
 
-app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, Guess) {
-    $scope.word = Word;
+app.controller("AppCtrl", ["$scope", "Word", "Guess", function($scope, Word, Guess){
+    $scope.word = Word; 
     $scope.guess = Guess;
+}]);
 
-    $scope.$watch('guess.indexli', function(){
-      Guess.letter = Guess.indexli;
-    });
+app.controller("WordCtrl", ["$scope", "Word", function ($scope, Word, Guess) {
+    $scope.word = Word;
 }]);
 
 app.controller("GuessCtrl", ["$scope", "Guess", "Word", function ($scope, Guess, Word){
