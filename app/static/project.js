@@ -1,67 +1,74 @@
-$(function() {
-	$('input.guess').focus();
-});
+var app = angular.module("hanglady", []);
 
-var app = angular.module("hanglady", ['ngAnimate']);
+app.factory("WordPicker", function(){
 
-app.factory("Word", function(){
-    var Words = ["hello", "bye", "sock", "orange"];
-    var stringWord = getRandomWord(Words);
-    var Word = makeArray(stringWord);
+    var words = [ 
+        "happy",
+        "sad",
+        "hungry",
+        "thirsty"
+    ]; 
 
-    function getRandomWord (list) {
-        var random_index = getRandomIndex(list);
-        if (list[random_index] === undefined){
+    function pickRandomItem (list) {
+
+        function randomIndexGenerator (){
+            var random = Math.round(Math.random() * (list.length) + 0);
+
+            if(random == words.length){
+               return random - 1; 
+            }
+            return random;
+        };
+
+        if (list[randomIndexGenerator()] === undefined){
             return list[0];
-        } else {
-            return list[random_index];
-        }
-    }
-    function getRandomIndex(list){
-        var random = Math.round(Math.random() * (list.length) + 0);
-        return random;
+        } 
+
+        return list[randomIndexGenerator()];
     }
 
-    function makeArray(stringWord){
-       return stringWord.split("");
-    }
+    var random_word = pickRandomItem(words);
 
-    return Word;
+    return random_word;
 });
 
 app.factory("Guess", function(){
-    var Guess = {
-        letter: 'm'
+    var guess = {
+        letter: "?",
+        allLetterGuesses: [],
+        correctLetterGuesses: []
     };
-    return Guess;
+    return guess;
 });
 
-app.controller("AppCtrl", ["$rootScope", "$scope", "Word", "Guess", function($rootScope, $scope, Word, Guess){
-    $scope.word = Word; 
+app.controller("MainCtrl", ["$scope", "WordPicker", function($scope, WordPicker){
+    $scope.word = WordPicker;
+    $scope.letterArray = $scope.word.split("");
+
+}]);
+
+app.controller("WordCtrl", ["$scope", function ($scope){
+}]);
+
+app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
+
     $scope.guess = Guess;
 
-    $scope.flip = function(index) {
-        alert('flip');
-        $rootScope.match = true;
-    };
+    $scope.$watchCollection('guess', function() {
 
-}]);
+        if(!$scope.guess || $scope.guess.letter === "" ){
+            return false;
+        } else {
+            angular.forEach($scope.letterArray, function(key){
+                if($scope.guess.letter === key){
+                    alert('flipQ');
+                    Guess.correctLetterGuesses.push($scope.guess.letter);
+                    return true;
+                }
+            });
+        }
 
-app.controller("WordCtrl", ["$rootScope", "$scope", "Word", function ($rootScope, $scope, Word, Guess) {
-}]);
-
-app.controller("GuessCtrl", ["$scope", "Guess", "Word", function ($scope, Guess, Word){
-
-    $scope.$watchCollection('guessLetter', function() {
-        angular.forEach($scope.word, function(key,index){
-            if($scope.guessLetter == key){
-                $scope.flip(index);
-            }
-        });
+        Guess.allLetterGuesses.push($scope.guess.letter);
     });
 
 }]);
-
-app.run(function($rootScope){
-    $rootScope.match = false;
-});

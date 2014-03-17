@@ -1,25 +1,18 @@
-html(ng-app="hanglady", ng-controller="AppCtrl")
-	head
+html
+	head(lang="en")
 		title Hanglady
 		link(type="text/css", rel="stylesheet", media="screen", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css")
 		link(type="text/css", rel="stylesheet", href="public/dist/project.min.css")
 
-	body
+	body(ng-app="hanglady")
 
-		div(class="container")
-
-			div(ng-init="changeable = null", class="btn-group", ng-controller="WordCtrl")
-				div(ng-repeat="letter in word track by $index", class="btn well")
-					div(ng-hide="true", ng-animate="fade", class="front") {{letter}}
-					div(ng-hide="false", class="back") ? 
+		div(class="container", ng-controller="MainCtrl")
+			div(class="btn-group", ng-controller="WordCtrl")
+				div(ng-repeat="letter in letterArray track by $index", class="btn well")
+					div.front {{letter}} 
 
 			div(class="input-group", ng-controller="GuessCtrl")
-				input(maxlength="1", type="text", class="guess", ng-init="m", ng-model="guessLetter") 
-				span {{guessLetter}}
+				input(type="text", class="guess", maxlength="1", value="guess", ng-model="guess.letter") 
 
-	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js") 
-	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.js")
-	script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.0rc3/angular-animate.min.js")
-	script(type="text/javascript", src="public/dist/project.min.js")
 	script(type="text/javascript", src="app/static/project.js")
