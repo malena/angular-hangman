@@ -43,7 +43,14 @@ app.factory("Guess", function(){
 
 app.controller("MainCtrl", ["$scope", "WordPicker", function($scope, WordPicker){
     $scope.word = WordPicker;
-    $scope.letterArray = $scope.word.split("");
+    $scope.letters = angular.element($scope.word.split(""));
+
+    /*
+    $scope.checkWordComplete = function (letter){
+        alert('flip letter' + letter);
+        console.log(angular.element($scope.letters));
+    };
+    */
 
 }]);
 
@@ -59,10 +66,10 @@ app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
         if(!$scope.guess || $scope.guess.letter === "" ){
             return false;
         } else {
-            angular.forEach($scope.letterArray, function(key){
+            angular.forEach($scope.letters, function(key, index){
                 if($scope.guess.letter === key){
-                    alert('flipQ');
                     Guess.correctLetterGuesses.push($scope.guess.letter);
+                    // $scope.checkWordComplete($scope.guess.letter);
                     return true;
                 }
             });
@@ -72,3 +79,46 @@ app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
     });
 
 }]);
+
+app.directive('myRepeatDirective', ['Guess', function(Guess){
+
+    function link(scope, element, attrs) {
+        //console.log(angular.element(element).scope().letter);
+        scope.guess = Guess;
+
+        scope.$watchCollection('guess', function() {
+
+            if(scope.letter === "" || scope.letter == "?"){
+                return false;
+            } else {
+                angular.forEach(scope.letter, function(key, index){
+                    if(scope.guess.letter === key){
+                        // $scope.checkWordComplete($scope.guess.letter);
+                        console.log('true');
+                        console.log(scope);
+                        angular.element(element).css('border', '5px solid red');
+                        return true;
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        link: link,
+        scope: false,
+        transclude: false
+    };
+}]);
+
+app.directive('myMainDirective', function() {
+
+    function link(scope, element, attr){
+        //angular.element(element).css('border','5px solid red');
+        //console.log(scope);
+    }
+
+    return {
+        link: link
+    };
+});
