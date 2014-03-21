@@ -9,26 +9,10 @@ app.factory("Word", function(){
         "thirsty"
     ]; 
 
-    function randomWord (list) {
+    var word = words[Math.floor(Math.random() * words.length)];
 
-        function random(){
-            var random = Math.round(Math.random() * (list.length) + 0);
+    return word;
 
-            if(random == words.length){
-                return random - 1; 
-            }
-
-            return random;
-        };
-
-        if (list[random()] === undefined){
-            return list[0];
-        } 
-
-        return list[random()];
-    }
-
-    return randomWord(words);
 });
 
 app.factory("Guess", function(){
