@@ -1,6 +1,6 @@
 var app = angular.module("hanglady", []);
 
-app.factory("WordPicker", function(){
+app.factory("Word", function(){
 
     var words = [ 
         "happy",
@@ -9,49 +9,41 @@ app.factory("WordPicker", function(){
         "thirsty"
     ]; 
 
-    function pickRandomItem (list) {
+    function randomWord (list) {
 
-        function randomIndexGenerator (){
+        function random(){
             var random = Math.round(Math.random() * (list.length) + 0);
 
             if(random == words.length){
-               return random - 1; 
+                return random - 1; 
             }
+
             return random;
         };
 
-        if (list[randomIndexGenerator()] === undefined){
+        if (list[random()] === undefined){
             return list[0];
         } 
 
-        return list[randomIndexGenerator()];
+        return list[random()];
     }
 
-    var random_word = pickRandomItem(words);
-
-    return random_word;
+    return randomWord(words);
 });
 
 app.factory("Guess", function(){
     var guess = {
         letter: "?",
         allLetterGuesses: [],
-        correctLetterGuesses: []
+        correctLetterGuesses: [],
+        correctWord: []
     };
     return guess;
 });
 
-app.controller("MainCtrl", ["$scope", "WordPicker", function($scope, WordPicker){
-    $scope.word = WordPicker;
+app.controller("MainCtrl", ["$scope", "Word", function($scope, Word){
+    $scope.word = Word;
     $scope.letters = angular.element($scope.word.split(""));
-
-    /*
-    $scope.checkWordComplete = function (letter){
-        alert('flip letter' + letter);
-        console.log(angular.element($scope.letters));
-    };
-    */
-
 }]);
 
 app.controller("WordCtrl", ["$scope", function ($scope){
@@ -69,7 +61,6 @@ app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
             angular.forEach($scope.letters, function(key, index){
                 if($scope.guess.letter === key){
                     Guess.correctLetterGuesses.push($scope.guess.letter);
-                    // $scope.checkWordComplete($scope.guess.letter);
                     return true;
                 }
             });
@@ -82,22 +73,32 @@ app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
 
 app.directive('myRepeatDirective', ['Guess', function(Guess){
 
+    var count = 0;
+
     function link(scope, element, attrs) {
-        //console.log(angular.element(element).scope().letter);
+
         scope.guess = Guess;
 
         scope.$watchCollection('guess', function() {
 
-            if(scope.letter === "" || scope.letter == "?"){
+            if(scope.letter === " " || scope.letter == "?"){
                 return false;
+
             } else {
                 angular.forEach(scope.letter, function(key, index){
+
                     if(scope.guess.letter === key){
-                        // $scope.checkWordComplete($scope.guess.letter);
-                        console.log('true');
-                        console.log(scope);
                         angular.element(element).css('border', '5px solid red');
-                        return true;
+                        scope.flip = true;
+                        scope.guess.guessed = true;
+                        count = count + 1;
+
+                        if(count == scope.word.length){
+                            alert('word guessed!'); 
+                        }
+
+                    } else {
+                        scope.guess.guessed = false;
                     }
                 });
             }
@@ -110,15 +111,3 @@ app.directive('myRepeatDirective', ['Guess', function(Guess){
         transclude: false
     };
 }]);
-
-app.directive('myMainDirective', function() {
-
-    function link(scope, element, attr){
-        //angular.element(element).css('border','5px solid red');
-        //console.log(scope);
-    }
-
-    return {
-        link: link
-    };
-});
