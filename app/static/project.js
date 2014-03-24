@@ -8,7 +8,7 @@ app.factory("Word", function(){
         "thirsty"
     ]; 
     var word = words[Math.floor(Math.random() * words.length)];
-    return word;
+    return word.split("");
 });
 
 app.factory("Guess", function(){
@@ -20,15 +20,12 @@ app.factory("Guess", function(){
     return guess;
 });
 
-app.controller("MainCtrl", ["$scope", "Word", function($scope, Word){
+app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, Guess){
     $scope.word = Word;
-    $scope.letters = angular.element($scope.word.split(""));
-}]);
+    $scope.letters = angular.element($scope.word);
 
-app.controller("WordCtrl", ["$scope", "Guess", function ($scope, Guess){
     $scope.guess = Guess;
-    $scope.wordArray = $scope.word.split("");
-    var equal;
+    var match;
 
     $scope.$watchCollection('guess', function() {
         if($scope.guess.letter == ""){
@@ -39,9 +36,9 @@ app.controller("WordCtrl", ["$scope", "Guess", function ($scope, Guess){
                     Guess.correctLetterGuesses[index] = $scope.guess.letter;
                 }
             });
-            equal = _.isEqual(Guess.correctLetterGuesses, $scope.wordArray);
+            match = _.isEqual(Guess.correctLetterGuesses, $scope.word);
         }
-        if(equal == true){
+        if(match == true){
             alert('matched!')
             return;
         }
@@ -55,12 +52,12 @@ app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
 app.directive('myRepeatDirective', ['Guess', function(Guess){
     function link(scope, element, attrs) {
         scope.guess = Guess;
-
         scope.$watchCollection('guess', function(){
             angular.forEach(scope.letter, function(key, index){
                 if(scope.guess.letter === key){
                     angular.element(element).css('border', '5px solid red');
                     scope.flip = true;
+                    // TODOF: move cursor to begining 
                 } 
             });
         });

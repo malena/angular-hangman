@@ -6,14 +6,14 @@ html
 
 	body(ng-app="hanglady")
 
-		div(class="container", ng-controller="MainCtrl")
+		div(class="container")
 			div(class="btn-group", ng-controller="WordCtrl")
 				div(ng-repeat="letter in letters track by $index", my-guess info="guess", class="btn well", my-repeat-directive)
-					div.front(ng-if="flip") {{letter}} 
+					div.front(ng-if="flip", ng-bind="letter")
 					div.back(ng-if="!flip")  ?
 
 			div(class="input-group", ng-controller="GuessCtrl")
-				input(type="text", class="guess", maxlength="1", value="guess", ng-model="guess.letter") 
+				input(type="text", class="guess", maxlength="1", value="?", ng-model="guess.letter") 
 
 	script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
