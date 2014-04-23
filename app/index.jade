@@ -20,12 +20,13 @@ html
 				span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
 
 			div(ng-controller="DeadManCtrl")
-				span.head head
-				span.neck neck
-				span.left-arm left arm
-				span.right-arm right arm
-				span.left-leg left leg
-				span.right-let right leg
+				div.body-parts(my-deadman-directive)
+					span.head(data-parts="head") head
+					span.neck(data-parts="neck") neck
+					span.left-arm(data-parts="left-arm") left arm
+					span.right-arm(data-parts="right-arm") right arm
+					span.left-leg(data-parts="left-leg") left leg
+					span.right-let(data-parts="right-leg") right leg
 
 
 	script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")

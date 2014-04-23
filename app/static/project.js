@@ -1,8 +1,7 @@
 var app = angular.module("hanglady", []);
 
 app.factory("Alphabet", function(){
-    var alphabet = [
-        "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
+    var alphabet = [ "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
     ];
 
     return alphabet;
@@ -27,7 +26,8 @@ app.factory("Guess", function(){
     var guess = {
         letter: "?",
         allLetterGuesses: [],
-        correctLetterGuesses: []
+        correctLetterGuesses: [],
+        incorrectLetterGuesses: []
     };
 
     return guess;
@@ -48,14 +48,17 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, G
         if($scope.guess.letter == ""){
            return;
         } else {
-
             Guess.allLetterGuesses.push($scope.guess.letter);
-
             angular.forEach($scope.letters, function(key, index){
                 if(key == $scope.guess.letter){
                     Guess.correctLetterGuesses[index] = $scope.guess.letter;
+                    return;
                 }
             });
+
+            // Only push incorrect letter guesses
+            Guess.incorrectLetterGuesses.push($scope.guess.letter);
+
             isMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
         }
         if(isMatch == true){
@@ -72,19 +75,32 @@ app.controller("GuessCtrl", ["$scope", "Guess", function ($scope, Guess){
 app.controller("AlphabetCtrl", ["$scope", "Guess", "Alphabet", function ($scope, Guess, Alphabet){
     $scope.alphabet = Alphabet;
     $scope.guess = Guess;
-
     $scope.char = angular.element($scope.alphabet);
-
-    var highlight;
-
 }]);
 
 app.controller("DeadManCtrl", ["$scope", function ($scope){
 
 }]);
 
-app.directive('myAlphabetDirective', ['Guess', function (Guess){
+app.directive('myDeadmanDirective', ['Guess', function (Guess){
+    function link(scope,element,attrs){
+        scope.guess = Guess;
 
+        var body_part = angular.element(element).context.children;
+
+        scope.$watchCollection('guess', function(){
+            var count = scope.guess.incorrectLetterGuesses.length-1;
+            //angular.element(body_part[count-1]).show();
+        });
+    }
+    return {
+        link: link,
+        scope: false,
+        transclude: false
+    };
+}]);
+
+app.directive('myAlphabetDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
         scope.guess = Guess;
 
@@ -112,7 +128,6 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
 
 
 app.directive('myWordDirective', ['Guess', function(Guess){
-
     function link(scope, element, attrs) {
         scope.guess = Guess;
 
