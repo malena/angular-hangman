@@ -6,16 +6,29 @@ html
 
 	body(ng-app="hanglady")
 
-		div(class="container")
-			div(class="btn-group", ng-controller="WordCtrl")
-				div(ng-repeat="letter in letters track by $index", my-guess info="guess", class="btn well", my-repeat-directive)
+		div.container
+			div.btn-group(ng-controller="WordCtrl")
+
+				div.btn.well(ng-repeat="letter in letters track by $index", my-guess info="guess", my-word-directive)
 					div.front(ng-if="flip", ng-bind="letter")
 					div.back(ng-if="!flip")  ?
 
-			div(class="input-group", ng-controller="GuessCtrl")
-				input(type="text", class="guess", maxlength="1", value="?", ng-model="guess.letter") 
+			div.input-group(ng-controller="GuessCtrl")
+				input.guess(type="text", maxlength="1", value="?", ng-model="guess.letter")
+
+			div(ng-controller="AlphabetCtrl")
+				span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
+
+			div(ng-controller="DeadManCtrl")
+				span.head head
+				span.neck neck
+				span.left-arm left arm
+				span.right-arm right arm
+				span.left-leg left leg
+				span.right-let right leg
+
 
 	script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
 	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
-	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js") 
+	script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js")
 	script(type="text/javascript", src="app/static/project.js")
