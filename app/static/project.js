@@ -24,7 +24,7 @@ app.factory("Word", function(){
 app.factory("Guess", function(){
 
     var guess = {
-        letter: "?",
+        letter: "",
         allLetterGuesses: [],
         correctLetterGuesses: [],
         incorrectLetterGuesses: []
@@ -111,7 +111,7 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
                 angular.forEach(scope.char, function(key){
                     if(scope.guess.letter === key){
                         angular.element(element).css('color', 'red');
-                        if(scope.guess.allLetterGuesses.length > 4){
+                        if(scope.guess.allLetterGuesses.length > 25){
                             alert('hanged! game over!');
                         }
                     }
@@ -134,7 +134,7 @@ app.directive('myWordDirective', ['Guess', function(Guess){
         scope.$watchCollection('guess', function(){
             angular.forEach(scope.letter, function(key, index){
                 if(scope.guess.letter === key){
-                    angular.element(element).css('border', '5px solid red');
+                    angular.element(element).addClass('selected');
                     scope.flip = true;
                     // TODOF: move cursor to begining
                 }
