@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 				}
 			},
 			html: {
-				files: ['app/index.jade'],
+				files: ['app/*.jade'],
 				tasks: ['jade'],
 				options: {
 					livereload: true,
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 		uglify : {
 			build: {
 				src: ['public/libs/js/*.js'],
-				dest: 'public/dist/project.min.js' 
+				dest: 'public/dist/project.min.js'
 			}
 		},
 
@@ -58,7 +58,8 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
-					'index.html' : 'app/index.jade'
+					'index.html' : 'app/index.jade',
+                    'bodyparts.html' : 'app/bodyparts.jade'
 				}
 			}
 		},

@@ -96,7 +96,8 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
     return {
         link: link,
         scope: false,
-        transclude: false
+        transclude: false,
+        templateUrl: '/bodyparts.html'
     };
 }]);
 
