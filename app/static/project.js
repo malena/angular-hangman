@@ -24,7 +24,7 @@ app.factory("Word", function(){
 app.factory("Guess", function(){
 
     var guess = {
-        letter: "",
+        letter: "?",
         allLetterGuesses: [],
         correctLetterGuesses: [],
         incorrectLetterGuesses: []
@@ -96,8 +96,7 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
     return {
         link: link,
         scope: false,
-        transclude: false,
-        templateUrl: '/bodyparts.html'
+        transclude: false
     };
 }]);
 

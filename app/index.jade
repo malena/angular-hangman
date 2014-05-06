@@ -8,24 +8,31 @@ html
 	body(ng-app="hanglady")
 
 		div.container
-			header
-				h1 Hangman
-				div
-					p To begin type your guess below.
+			h1 Hangman
+			div
+				p To begin type your guess below.
 
-			section.btn-group(ng-controller="WordCtrl")
+			div.btn-group(ng-controller="WordCtrl")
+
 				div.btn.well(ng-repeat="letter in letters track by $index", my-guess info="guess", my-word-directive)
 					div.front(ng-if="flip", ng-bind="letter")
 					div.back(ng-if="!flip")  ?
 
-			section.input-group(ng-controller="GuessCtrl")
-				input.guess(type="text", maxlength="1", value="?", autofocus, ng-model="guess.letter")
-
-			section(ng-controller="AlphabetCtrl")
+			div.input-group(ng-controller="GuessCtrl")
+				input.guess(type="text", maxlength="1", value="?", autofocus,k ng-model="guess.letter")
+					
+			div(ng-controller="AlphabetCtrl")
 				span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
 
-			section(ng-controller="DeadManCtrl")
-				div(my-deadman-directive)
+			div(ng-controller="DeadManCtrl")
+				div.body-parts(my-deadman-directive)
+					span.head(data-parts="head") head
+					span.neck(data-parts="neck") neck
+					span.left-arm(data-parts="left-arm") left arm
+					span.right-arm(data-parts="right-arm") right arm
+					span.left-leg(data-parts="left-leg") left leg
+					span.right-let(data-parts="right-leg") right leg
+
 
 	script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
 	script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
