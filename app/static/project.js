@@ -24,7 +24,7 @@ app.factory("Word", function(){
 app.factory("Guess", function(){
 
     var guess = {
-        letter: "?",
+        letter: "",
         allLetterGuesses: [],
         correctLetterGuesses: [],
         incorrectLetterGuesses: []
@@ -40,8 +40,10 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, G
 
     $scope.letters = angular.element($scope.word);
 
+    $scope.flipLetter = null;
 
-    var isMatch;
+    $scope.isWordMatch;
+    $scope.isLetterMatch = null; 
 
     $scope.$watchCollection('guess', function() {
 
@@ -52,19 +54,35 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, G
             angular.forEach($scope.letters, function(key, index){
                 if(key == $scope.guess.letter){
                     Guess.correctLetterGuesses[index] = $scope.guess.letter;
+                    $scope.isLetterMatch = true;
+                    $scope.flipLetter = true;
                     return;
-                }
+                } 
             });
 
             // Only push incorrect letter guesses
-            Guess.incorrectLetterGuesses.push($scope.guess.letter);
+            //console.log($scope.letters);
+            //console.log(Guess.incorrectLetterGuesses);
 
-            isMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
+            isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
+            $scope.isLetterMatch = _.contains($scope.letters, $scope.guess.letter);
         }
-        if(isMatch == true){
+
+        if($scope.isLetterMatch == true){
+           alert('letter match!'); 
+           $scope.isLetterMatch = true;
+           return;
+        } else {
+           alert('letter not matched!'); 
+           $scope.isLetterMatch = false;
+           return;
+        }
+
+        if(isWordMatch == true){
             alert('matched!')
             return;
         }
+
     });
 }]);
 
@@ -78,24 +96,22 @@ app.controller("AlphabetCtrl", ["$scope", "Guess", "Alphabet", function ($scope,
     $scope.char = angular.element($scope.alphabet);
 }]);
 
-app.controller("DeadManCtrl", ["$scope", function ($scope){
+app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
+    $scope.guess = Guess;
+
+    $scope.$watchCollection('guess', function() {
+        if($scope.guess.letter !== ""){
+            $scope.deadMan = $scope.isLetterMatch;
+        }
+    });
 
 }]);
 
 app.directive('myDeadmanDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
-        scope.guess = Guess;
-
-        var body_part = angular.element(element).context.children;
-
-        scope.$watchCollection('guess', function(){
-            var count = scope.guess.incorrectLetterGuesses.length-1;
-            //angular.element(body_part[count-1]).show();
-        });
     }
     return {
         link: link,
-        scope: false,
         transclude: false
     };
 }]);
@@ -105,7 +121,7 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
         scope.guess = Guess;
 
         scope.$watchCollection('guess', function(){
-            if(scope.guess.letter == ''){
+            if(scope.guess.letter == ' '){
                 return;
             } else {
                 angular.forEach(scope.char, function(key){
@@ -136,7 +152,6 @@ app.directive('myWordDirective', ['Guess', function(Guess){
                 if(scope.guess.letter === key){
                     angular.element(element).addClass('selected');
                     scope.flip = true;
-                    // TODOF: move cursor to begining
                 }
             });
         });

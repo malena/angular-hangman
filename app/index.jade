@@ -12,26 +12,21 @@ html
 			div
 				p To begin type your guess below.
 
-			div.btn-group(ng-controller="WordCtrl")
+			div(ng-controller="WordCtrl")
 
-				div.btn.well(ng-repeat="letter in letters track by $index", my-guess info="guess", my-word-directive)
-					div.front(ng-if="flip", ng-bind="letter")
-					div.back(ng-if="!flip")  ?
+				div.btn-group
+					div.btn.well(ng-repeat="letter in letters track by $index", my-guess info="guess", my-word-directive)
+						div.front(ng-if="flip", ng-bind="letter")
+						div.back(ng-if="!flip")  ?
 
-			div.input-group(ng-controller="GuessCtrl")
-				input.guess(type="text", maxlength="1", value="?", autofocus,k ng-model="guess.letter")
-					
-			div(ng-controller="AlphabetCtrl")
-				span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
+				div.input-group(ng-controller="GuessCtrl")
+					input.guess(type="text", maxlength="1", value="?", autofocus, ng-model="guess.letter")
 
-			div(ng-controller="DeadManCtrl")
-				div.body-parts(my-deadman-directive)
-					span.head(data-parts="head") head
-					span.neck(data-parts="neck") neck
-					span.left-arm(data-parts="left-arm") left arm
-					span.right-arm(data-parts="right-arm") right arm
-					span.left-leg(data-parts="left-leg") left leg
-					span.right-let(data-parts="right-leg") right leg
+				div(ng-controller="AlphabetCtrl")
+					span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
+
+				div(ng-controller="DeadManCtrl")
+					div.body-parts(my-deadman-directive, data-state="{{deadMan}}")
 
 
 	script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
