@@ -97,18 +97,21 @@ app.controller("AlphabetCtrl", ["$scope", "Guess", "Alphabet", function ($scope,
 }]);
 
 app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
-    $scope.guess = Guess;
-
-    $scope.$watchCollection('guess', function() {
-        if($scope.guess.letter !== ""){
-            $scope.deadMan = $scope.isLetterMatch;
-        }
-    });
 
 }]);
 
 app.directive('myDeadmanDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
+        scope.guess = Guess;
+        scope.$watchCollection('guess', function() {
+            if(scope.guess.letter !== ""){
+                scope.damn = !scope.isLetterMatch;
+            }
+            if(scope.damn == true){
+                //animate deadman
+                angular.element(element).css('top', '10em');
+            }
+        });
     }
     return {
         link: link,
