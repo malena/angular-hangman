@@ -1,10 +1,21 @@
-var app = angular.module("hanglady", []);
+var app = angular.module("hangman", []);
 
 app.factory("Alphabet", function(){
     var alphabet = [ "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
     ];
 
     return alphabet;
+});
+
+app.factory("Animations", function(){
+    return {
+        firstAnimation: function(){
+           alert('First Animation');
+        },
+        secondAnimation: function(){
+           alert('Second Animation'); 
+        }
+    }
 });
 
 app.factory("Word", function(){
@@ -33,15 +44,32 @@ app.factory("Guess", function(){
     return guess;
 });
 
-app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, Guess){
+app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($scope, Word, Guess, Animations){
 
     $scope.word = Word;
     $scope.guess = Guess;
+    $scope.animations = Animations;
+
+    $scope.matchingState = {
+        isLetterMatch: function (letter, word){
+            var result = _.contains(letter, word);
+            return result;
+        },
+        isWordMatch: function (word_guess, word){
+            var result = _.isEqual(word_guess, word);
+            return result;
+        }
+    };
+
+    $scope.deadState = {
+        phase1 : function(element){
+            alert('call aniamtion 1');
+        } 
+    }
+
 
     $scope.letters = angular.element($scope.word);
-
     $scope.flipLetter = null;
-
     $scope.isWordMatch;
     $scope.isLetterMatch = null; 
 
@@ -60,27 +88,20 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, G
                 } 
             });
 
-            // Only push incorrect letter guesses
-            //console.log($scope.letters);
-            //console.log(Guess.incorrectLetterGuesses);
 
-            isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
-            $scope.isLetterMatch = _.contains($scope.letters, $scope.guess.letter);
+            $scope.matchingState.isLetterMatch($scope.guess.letter, $scope.letters);
+            $scope.matchingState.isWordMatch(Guess.correctLetterGuesses, $scope.word);
         }
 
         if($scope.isLetterMatch == true){
-           alert('letter match!'); 
-           $scope.isLetterMatch = true;
-           return;
+           alert('match');
         } else {
-           alert('letter not matched!'); 
            $scope.isLetterMatch = false;
-           return;
+           alert('no match');
+           $scope.deadState.phase1();
         }
-
-        if(isWordMatch == true){
+        if($scope.isWordMatch == true){
             alert('matched!')
-            return;
         }
 
     });
@@ -104,16 +125,21 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
         scope.guess = Guess;
         scope.$watchCollection('guess', function() {
-            if(scope.guess.letter !== ""){
-                scope.damn = !scope.isLetterMatch;
-            }
-            if(scope.damn == true){
-                //animate deadman
-                angular.element(element).css('top', '10em');
+            if(scope.guess.letter == ""){
+                return;
+            } else {
+                console.log(scope.guess.letter);
+                console.log($scope);
+                var element = angular.element(element);
+                scope.firstAnimation();
             }
         });
+
+        scope.firstAnimation = function (){
+        }
     }
     return {
+        scope: false,
         link: link,
         transclude: false
     };
