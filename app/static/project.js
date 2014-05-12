@@ -64,10 +64,16 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, G
             //console.log($scope.letters);
             //console.log(Guess.incorrectLetterGuesses);
 
-            isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
+            $scope.isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
+            console.log($scope.isWordMatch);
             $scope.isLetterMatch = _.contains($scope.letters, $scope.guess.letter);
         }
 
+        if($scope.isWordMatch == true){
+            alert('Wahoo! You haven\'t gone mad!!');
+            // redirect to win page
+            return;
+        }
         if($scope.isLetterMatch == true){
            alert('letter match!'); 
            $scope.isLetterMatch = true;
@@ -78,10 +84,6 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", function ($scope, Word, G
            return;
         }
 
-        if(isWordMatch == true){
-            alert('matched!')
-            return;
-        }
 
     });
 }]);
@@ -108,7 +110,6 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
                 scope.damn = !scope.isLetterMatch;
             }
             if(scope.damn == true){
-                //animate deadman
                 angular.element(element).css('top', '10em');
             }
         });
