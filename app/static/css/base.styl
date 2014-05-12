@@ -1,18 +1,42 @@
-body
-	background-color: #000
-	color: #666
-	font-size: 16px;
+body.inverse
+	background-color #fff
 
+	h1
+		color #000
+
+	.guess
+		background-color #fff
+		color red 
+
+	.well 
+		background-color: #fff
+
+	.front 
+		background-color: #fff
+		color: #000
+
+body
+	background-color #000
+	color #666
+	font-size: 16px
 
 h1	
-	font-size: 3em;	
+	font-size 3em	
 	color: #fff
-	text-transform: uppercase;
-	font-family: 'Candal', 'sans-serif';
+	text-transform uppercase
+	font-family 'Candal', 'sans-serif'
 
 .container
 	text-align: center
 	margin: auto auto
+
+.game
+	position relative 
+
+.dead-man
+	width 100%
+	position absolute
+	top 0
 
 .well
 	background-color: #000
@@ -61,12 +85,26 @@ input:focus
 
 .body-parts
 	position absolute 
-	bottom -40em 
 	margin auto auto
 	height 600px
 	width 100%
-	background url('/public/images/body.png') no-repeat transparent
 	z-index: -1
+
+	.phase1
+		height: 100%
+		background url('/public/images/face.png') no-repeat transparent
+		background-size 50%
+		background-position: top right
+
+	.phase2
+		height: 100%
+		background url('/public/images/body.png') no-repeat transparent
+		background-position: top right
+
+	.phase3
+		height: 100%
+		background url('/public/images/drop.png') no-repeat transparent
+		background-position: top right
 
 .front
 	background-color: #000

@@ -12,8 +12,7 @@ html
 			div
 				p To begin type your guess below.
 
-			div(ng-controller="WordCtrl")
-
+			div.game(ng-controller="WordCtrl")
 				div.btn-group
 					div.btn.well(ng-repeat="letter in letters track by $index", my-guess info="guess", my-word-directive)
 						div.front(ng-if="flip", ng-bind="letter")
@@ -25,8 +24,11 @@ html
 				div(ng-controller="AlphabetCtrl")
 					span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
 
-				div(ng-controller="DeadManCtrl")
+				div.dead-man(ng-controller="DeadManCtrl")
 					div.body-parts(my-deadman-directive)
+						.phase1
+						.phase2
+						.phase3
 
 
 	script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
