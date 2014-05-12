@@ -63,8 +63,14 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
 
     $scope.deadState = {
         phase1 : function(element){
-            alert('call aniamtion 1');
-        } 
+            angular.element(element).css('bottom','2em');
+        },
+        phase2: function(element){
+            angular.element(element).css('bottom','20em');
+        },
+        phase3: function(element){
+            angular.element(element).css('bottom', '60em');
+        }
     }
 
 
@@ -90,7 +96,6 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
 
 
             $scope.isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
-            console.log($scope.isWordMatch);
             $scope.isLetterMatch = _.contains($scope.letters, $scope.guess.letter);
         }
 
@@ -98,10 +103,9 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
             alert('Wahoo! You haven\'t gone mad!!');
             return;
         }
-        if($scope.isLetterMatch == true){
-        } else {
+        if($scope.isLetterMatch !== true){
            $scope.isLetterMatch = false;
-           $scope.deadState.phase1();
+           Guess.incorrectLetterGuesses.push($scope.guess.letter); 
         }
 
     });
@@ -118,6 +122,14 @@ app.controller("AlphabetCtrl", ["$scope", "Guess", "Alphabet", function ($scope,
 }]);
 
 app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
+    $scope.guess = Guess;
+    $scope.$watchCollection('guess', function() {
+         if($scope.guess.letter == ""){
+           return;
+        } else {
+            //
+        }
+    });
 
 }]);
 
@@ -127,15 +139,17 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
         scope.$watchCollection('guess', function() {
 
             if(scope.guess.letter !== ""){
-                scope.damn = !scope.isLetterMatch;
-            }
-            if(scope.damn == true){
-                angular.element(element).css('top', '10em');
+                if(scope.isLetterMatch == false){
+                    if(scope.guess.incorrectLetterGuesses.length == 1){
+                        scope.deadState.phase1(element);
+                    } else if(scope.guess.incorrectLetterGuesses.length == 2){
+                       scope.deadState.phase2(element);
+                    } else if(scope.guess.incorrectLetterGuesses.length == 3){
+                       scope.deadState.phase3(element);
+                    }
+                }
             }
         });
-
-        scope.firstAnimation = function (){
-        }
     }
     return {
         scope: false,
