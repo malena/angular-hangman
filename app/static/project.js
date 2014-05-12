@@ -89,19 +89,19 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
             });
 
 
-            $scope.matchingState.isLetterMatch($scope.guess.letter, $scope.letters);
-            $scope.matchingState.isWordMatch(Guess.correctLetterGuesses, $scope.word);
+            $scope.isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
+            console.log($scope.isWordMatch);
+            $scope.isLetterMatch = _.contains($scope.letters, $scope.guess.letter);
         }
 
+        if($scope.isWordMatch == true){
+            alert('Wahoo! You haven\'t gone mad!!');
+            return;
+        }
         if($scope.isLetterMatch == true){
-           alert('match');
         } else {
            $scope.isLetterMatch = false;
-           alert('no match');
            $scope.deadState.phase1();
-        }
-        if($scope.isWordMatch == true){
-            alert('matched!')
         }
 
     });
@@ -125,13 +125,12 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
         scope.guess = Guess;
         scope.$watchCollection('guess', function() {
-            if(scope.guess.letter == ""){
-                return;
-            } else {
-                console.log(scope.guess.letter);
-                console.log($scope);
-                var element = angular.element(element);
-                scope.firstAnimation();
+
+            if(scope.guess.letter !== ""){
+                scope.damn = !scope.isLetterMatch;
+            }
+            if(scope.damn == true){
+                angular.element(element).css('top', '10em');
             }
         });
 
