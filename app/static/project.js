@@ -64,8 +64,11 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
     $scope.deadState = {
         phase1 : function(element){
             $('body').toggleClass('inverse');
+            var phase1div = angular.element(element).children('.phase1');
+            angular.element(phase1div).show();
         },
         phase2: function(element){
+            $('body').toggleClass('inverse');
             var phase1div = angular.element(element).children('.phase1');
             angular.element(phase1div).hide();
 
@@ -73,6 +76,7 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
             angular.element(phase2div).show();
         },
         phase3: function(element){
+            $('body').toggleClass('inverse');
             var phase2div = angular.element(element).children('.phase2');
             angular.element(phase2div).hide();
 
