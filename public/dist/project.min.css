@@ -1,8 +1,11 @@
+*{margin:0;padding:0;box-sizing:border-box}
 body.inverse{background-color:#fff;}
 body.inverse h1{color:#000}
-body.inverse .guess{background-color:#fff;color:#f00}
+body.inverse .guess{background-color:#fff;color:#000}
 body.inverse .well{background-color:#fff}
 body.inverse .front{background-color:#fff;color:#000}
+body.inverse .alphabet.correct{color:#000;border:solid 1px #000}
+body.inverse .alphabet.incorrect{border:solid 1px #f00}
 body{background-color:#000;color:#666;font-size:16px}
 h1{font-size:3em;color:#fff;text-transform:uppercase;font-family:'Candal','sans-serif'}
 .container{text-align:center;margin:auto auto}
@@ -16,7 +19,9 @@ h1{font-size:3em;color:#fff;text-transform:uppercase;font-family:'Candal','sans-
 .btn{margin:auto auto;display:block}
 input:focus{outline:0}
 .guess{border:none;background-color:#000;font-size:60px;margin:0 0 2em 0;width:100px;height:100px;color:#fff}
-.alphabet{font-size:1em;margin:1em}
+.alphabet{font-size:1em;width:20px;heightdisplay:inline-block;padding:.2em;margin:1em}
+.alphabet.correct{color:#fff;border:solid 1px #fff}
+.alphabet.incorrect{background-color:#f00;color:#fff;border:solid 1px #fff}
 .body-parts span{display:none}
 .body-parts{position:absolute;margin:auto auto;height:600px;width:100%;z-index:-1;}
 .body-parts .phase1{height:100%;background:url("/public/images/face.png") no-repeat transparent;background-size:50%;background-position:top right}

@@ -1,3 +1,8 @@
+*
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+
 body.inverse
 	background-color #fff
 
@@ -6,7 +11,7 @@ body.inverse
 
 	.guess
 		background-color #fff
-		color red 
+		color #000 
 
 	.well 
 		background-color: #fff
@@ -14,6 +19,13 @@ body.inverse
 	.front 
 		background-color: #fff
 		color: #000
+
+	.alphabet.correct
+		color: #000
+		border: solid 1px #000
+
+	.alphabet.incorrect
+		border: solid 1px red
 
 body
 	background-color #000
@@ -78,7 +90,20 @@ input:focus
 
 .alphabet
 	font-size: 1em 
+	width: 20px
+	height; 20px
+	display: inline-block
+	padding: .2em
 	margin: 1em 
+
+.alphabet.correct
+	color: #fff
+	border: solid 1px #fff
+
+.alphabet.incorrect
+	background-color: red
+	color: #fff
+	border: solid 1px #fff
 
 .body-parts span
 	display: none

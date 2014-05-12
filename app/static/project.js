@@ -176,7 +176,11 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
             } else {
                 angular.forEach(scope.char, function(key){
                     if(scope.guess.letter === key){
-                        angular.element(element).css('color', 'red');
+                        if(scope.isLetterMatch == true){
+                            angular.element(element).addClass('correct');
+                        } else {
+                            angular.element(element).addClass('incorrect');
+                        }
                         if(scope.guess.allLetterGuesses.length > 25){
                             alert('hanged! game over!');
                         }
