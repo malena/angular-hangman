@@ -5,7 +5,7 @@ html
 		link(type="text/css", rel="stylesheet", media="screen", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css")
 		link(type="text/css", rel="stylesheet", href="public/dist/project.min.css")
 
-	body(ng-app="hangman")
+	body.inverse(ng-app="hangman")
 
 		div.container
 			h1 Hangman
@@ -26,9 +26,7 @@ html
 
 				div.dead-man(ng-controller="DeadManCtrl")
 					div.body-parts(my-deadman-directive)
-						.phase1
-						.phase2
-						.phase3
+						.deadman
 
 
 	script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")

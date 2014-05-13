@@ -14,6 +14,9 @@ app.factory("Animations", function(){
         },
         secondAnimation: function(){
            alert('Second Animation'); 
+        },
+        thirdAnimation: function(){
+           alert('Third Animation'); 
         }
     }
 });
@@ -63,26 +66,23 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
 
     $scope.deadState = {
         phase1 : function(element){
-            $('body').toggleClass('inverse');
-            var phase1div = angular.element(element).children('.phase1');
-            angular.element(phase1div).show();
+            var deadman = angular.element(element).children('.deadman');
+            angular.element(deadman).show();
         },
         phase2: function(element){
-            $('body').toggleClass('inverse');
-            var phase1div = angular.element(element).children('.phase1');
-            angular.element(phase1div).hide();
-
-            var phase2div = angular.element(element).children('.phase2');
-            angular.element(phase2div).show();
+            var deadman = angular.element(element).children('.deadman');
+            angular.element(deadman).css('top','5em');
         },
         phase3: function(element){
-            $('body').toggleClass('inverse');
-            var phase2div = angular.element(element).children('.phase2');
-            angular.element(phase2div).hide();
+            var deadman = angular.element(element).children('.deadman');
+            angular.element(deadman).css('top','20em');
+        },
+        phase4: function(element){
+            $('body').removeClass('inverse');
+            var deadman = angular.element(element).children('.deadman');
+            angular.element(deadman).hide();
+        },
 
-            var phase3div = angular.element(element).children('.phase3');
-            angular.element(phase3div).show();
-        }
     }
 
 
@@ -158,6 +158,9 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
                        scope.deadState.phase2(element);
                     } else if(scope.guess.incorrectLetterGuesses.length == 3){
                        scope.deadState.phase3(element);
+                    } else if(scope.guess.incorrectLetterGuesses.length == 4){
+                       scope.deadState.phase4(element) 
+                       alert('you don\'t have what it takes!');
                     }
                 }
             }
