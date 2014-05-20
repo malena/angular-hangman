@@ -1,4 +1,4 @@
-var app = angular.module("hangman", []);
+var app = angular.module("hangman", ['ngRoute']);
 
 app.factory("Alphabet", function(){
     var alphabet = [ "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
@@ -47,7 +47,7 @@ app.factory("Guess", function(){
     return guess;
 });
 
-app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($scope, Word, Guess, Animations){
+app.controller("WordCtrl", ["$scope", "$location", "Word", "Guess", "Animations", function ($scope, $location, Word, Guess, Animations){
 
     $scope.word = Word;
     $scope.guess = Guess;
@@ -66,21 +66,17 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
 
     $scope.deadState = {
         phase1 : function(element){
-            var deadman = angular.element(element).children('.deadman');
-            angular.element(deadman).show();
+            angular.element(element).show();
         },
         phase2: function(element){
-            var deadman = angular.element(element).children('.deadman');
-            angular.element(deadman).css('top','5em');
+            angular.element(element).css('top','5em');
         },
         phase3: function(element){
-            var deadman = angular.element(element).children('.deadman');
-            angular.element(deadman).css('top','20em');
+            angular.element(element).css('top','20em');
         },
         phase4: function(element){
             $('body').removeClass('inverse');
-            var deadman = angular.element(element).children('.deadman');
-            angular.element(deadman).hide();
+            angular.element(element).hide();
         },
 
     }
@@ -113,6 +109,7 @@ app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($
 
         if($scope.isWordMatch == true){
             alert('Wahoo! You haven\'t gone mad!!');
+            window.location.href = "/";
             return;
         }
         if($scope.isLetterMatch !== true){
@@ -147,20 +144,23 @@ app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
 
 app.directive('myDeadmanDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
+        scope.deadman = angular.element(element).children('.deadman');
         scope.guess = Guess;
         scope.$watchCollection('guess', function() {
 
             if(scope.guess.letter !== ""){
                 if(scope.isLetterMatch == false){
                     if(scope.guess.incorrectLetterGuesses.length == 1){
-                        scope.deadState.phase1(element);
+                        scope.deadState.phase1(scope.deadman);
                     } else if(scope.guess.incorrectLetterGuesses.length == 2){
-                       scope.deadState.phase2(element);
+                       scope.deadState.phase2(scope.deadman);
                     } else if(scope.guess.incorrectLetterGuesses.length == 3){
-                       scope.deadState.phase3(element);
+                       scope.deadState.phase3(scope.deadman);
                     } else if(scope.guess.incorrectLetterGuesses.length == 4){
-                       scope.deadState.phase4(element) 
-                       alert('you don\'t have what it takes!');
+                       scope.deadState.phase4(scope.deadman);
+                       //TODO set up routing instead
+                       alert('you don\'t have what it takes');
+                       window.location.href = "/";
                     }
                 }
             }
