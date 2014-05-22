@@ -99,7 +99,6 @@ app.controller("WordCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
             angular.element(element).css('top','20em');
         },
         phase4: function(element){
-            $('body').removeClass('inverse');
             angular.element(element).hide();
         },
 
