@@ -6,9 +6,9 @@ app.config(function($routeProvider){
         {
             templateUrl: "home.html"
         })
-        .when('/test',
+        .when('/lost',
         {
-            template: 'yes!',
+            template: 'you lost!',
         }
     )
 });
@@ -66,7 +66,7 @@ app.controller('TestCtrl', ["$scope", function($scope){
     } 
 }]);
 
-app.controller("WordCtrl", ["$scope", "$location", "Word", "Guess", "Animations", function ($scope, $location, Word, Guess, Animations){
+app.controller("WordCtrl", ["$scope", "$location", "$route", "Word", "Guess", "Animations", function ($scope, $location, $route, Word, Guess, Animations){
 
     $scope.word = Word;
     $scope.guess = Guess;
@@ -161,7 +161,7 @@ app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
 
 }]);
 
-app.directive('myDeadmanDirective', ['Guess', function (Guess){
+app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $location){
     function link(scope,element,attrs){
         scope.deadman = angular.element(element).children('.deadman');
         scope.guess = Guess;
@@ -179,7 +179,7 @@ app.directive('myDeadmanDirective', ['Guess', function (Guess){
                        scope.deadState.phase4(scope.deadman);
                        //TODO set up routing instead
                        alert('you don\'t have what it takes');
-                       window.location.href = "/";
+                       $location.path('/lost');
                     }
                 }
             }
