@@ -4,12 +4,17 @@ app.config(function($routeProvider){
     $routeProvider
         .when('/',
         {
-            templateUrl: "home.html"
+            templateUrl: 'home.html'
         })
         .when('/lost',
         {
-            template: 'you lost!',
+            templateUrl: 'lost.html'
+        })
+        .when('/won',
+        {
+            templateUrl: 'won.html'
         }
+
     )
 });
 
@@ -127,9 +132,7 @@ app.controller("WordCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
         }
 
         if($scope.isWordMatch == true){
-            alert('Wahoo! You haven\'t gone mad!!');
-            window.location.href = "/";
-            return;
+            $location.path('/won');
         }
         if($scope.isLetterMatch !== true){
            $scope.isLetterMatch = false;
@@ -177,8 +180,6 @@ app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $loc
                        scope.deadState.phase3(scope.deadman);
                     } else if(scope.guess.incorrectLetterGuesses.length == 4){
                        scope.deadState.phase4(scope.deadman);
-                       //TODO set up routing instead
-                       alert('you don\'t have what it takes');
                        $location.path('/lost');
                     }
                 }

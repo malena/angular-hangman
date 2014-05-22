@@ -59,7 +59,9 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'index.html' : 'app/index.jade',
-                    'home.html' : 'app/home.jade'
+                    'home.html' : 'app/home.jade',
+                    'lost.html' : 'app/lost.jade',
+                    'won.html' : 'app/won.jade'
 				}
 			}
 		},
