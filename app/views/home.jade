@@ -3,7 +3,7 @@ div.container
 	div
 		p To begin type your guess below.
 
-	div.game(ng-controller="WordCtrl")
+	div.game(ng-controller="GameCtrl")
 		div.btn-group
 			div.btn.well(ng-repeat="letter in letters track by $index", my-guess info="guess", my-word-directive)
 				div.front(ng-if="flip", ng-bind="letter")

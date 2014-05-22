@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 				livereload: true,
 			},
 			scripts: {
-				files: ['app/static/project.js'],
+				files: ['app/static/controllers/project.js'],
 				tasks: ['uglify'],
 				options: {
 					spawn: false,
@@ -59,9 +59,9 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'index.html' : 'app/index.jade',
-                    'home.html' : 'app/home.jade',
-                    'lost.html' : 'app/lost.jade',
-                    'won.html' : 'app/won.jade'
+                    'home.html' : 'app/views/home.jade',
+                    'lost.html' : 'app/views/lost.jade',
+                    'won.html' : 'app/views/won.jade'
 				}
 			}
 		},
