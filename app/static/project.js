@@ -110,6 +110,7 @@ app.controller("WordCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
     $scope.flipLetter = null;
     $scope.isWordMatch;
     $scope.isLetterMatch = null; 
+    $scope.lost = false;
 
     $scope.$watchCollection('guess', function() {
 
@@ -137,6 +138,9 @@ app.controller("WordCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
         if($scope.isLetterMatch !== true){
            $scope.isLetterMatch = false;
            Guess.incorrectLetterGuesses.push($scope.guess.letter); 
+        }
+        if($scope.lost == true){
+            $location.path('/lost');
         }
 
     });
@@ -180,6 +184,8 @@ app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $loc
                        scope.deadState.phase3(scope.deadman);
                     } else if(scope.guess.incorrectLetterGuesses.length == 4){
                        scope.deadState.phase4(scope.deadman);
+                       //TODO make a change to root $scope.lost == true
+                       // so that you cannot go back with delete key
                        $location.path('/lost');
                     }
                 }
