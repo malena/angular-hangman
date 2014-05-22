@@ -4,7 +4,7 @@ body.inverse h1{color:#000}
 body.inverse .guess{background-color:#fff;color:#000}
 body.inverse .well{background-color:#fff}
 body.inverse .front{background-color:#fff;color:#000}
-body.inverse .alphabet.correct{color:#000;border:solid 1px #000}
+body.inverse .alphabet.correct{color:#fff;background-color:#000}
 body.inverse .alphabet.incorrect{border:solid 1px #f00}
 body{background-color:#000;color:#666;font-size:16px}
 h1{font-size:3em;color:#fff;text-transform:uppercase;font-family:'Candal','sans-serif'}
@@ -19,7 +19,7 @@ h1{font-size:3em;color:#fff;text-transform:uppercase;font-family:'Candal','sans-
 .btn{margin:auto auto;display:block}
 input:focus{outline:0}
 .guess{border:none;background-color:#000;font-size:60px;margin:0 0 2em 0;width:100px;height:100px;color:#fff}
-.alphabet{font-size:1em;width:20px;height:20px;padding:.2em;margin:.5em}
+.alphabet{font-size:1em;width:20px;height:20px;padding:.3em;margin:.2em}
 .alphabet.correct{color:#fff;border:solid 1px #fff}
 .alphabet.incorrect{background-color:#f00;color:#fff;border:solid 1px #fff}
 .body-parts span{display:none}
