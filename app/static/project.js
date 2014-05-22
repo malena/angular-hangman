@@ -1,5 +1,18 @@
 var app = angular.module("hangman", ['ngRoute']);
 
+app.config(function($routeProvider){
+    $routeProvider
+        .when('/',
+        {
+            templateUrl: "home.html"
+        })
+        .when('/test',
+        {
+            template: 'yes!',
+        }
+    )
+});
+
 app.factory("Alphabet", function(){
     var alphabet = [ "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
     ];
@@ -46,6 +59,12 @@ app.factory("Guess", function(){
 
     return guess;
 });
+
+app.controller('TestCtrl', ["$scope", function($scope){
+    $scope.model= {
+        message: 'hello jupiter'
+    } 
+}]);
 
 app.controller("WordCtrl", ["$scope", "$location", "Word", "Guess", "Animations", function ($scope, $location, Word, Guess, Animations){
 
@@ -187,9 +206,6 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
                             angular.element(element).addClass('correct');
                         } else {
                             angular.element(element).addClass('incorrect');
-                        }
-                        if(scope.guess.allLetterGuesses.length > 25){
-                            alert('hanged! game over!');
                         }
                     }
                 });
