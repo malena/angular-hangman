@@ -1,6 +1,7 @@
 app.controller("GameCtrl", ["$scope", "$location", "$route", "Word", "Guess", "Animations", function ($scope, $location, $route, Word, Guess, Animations){
 
     $scope.word = Word;
+
     $scope.guess = Guess;
     $scope.animations = Animations;
 

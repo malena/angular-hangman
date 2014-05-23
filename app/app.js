@@ -37,19 +37,6 @@ app.factory("Animations", function(){
     }
 });
 
-app.factory("Word", function(){
-    var words = [
-        "happy",
-        "sad",
-        "hungry",
-        "thirsty"
-    ];
-
-    var random_word = words[Math.floor(Math.random() * words.length)];
-    var word = random_word.split("");
-
-    return word;
-});
 
 app.factory("Guess", function(){
 
