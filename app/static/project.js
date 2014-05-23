@@ -1,22 +1,4 @@
-var app = angular.module("hangman", ['ngRoute']);
-
-app.config(function($routeProvider){
-    $routeProvider
-        .when('/',
-        {
-            templateUrl: 'home.html'
-        })
-        .when('/lost',
-        {
-            templateUrl: 'lost.html'
-        })
-        .when('/won',
-        {
-            templateUrl: 'won.html'
-        }
-
-    )
-});
+var app = angular.module("hangman", []);
 
 app.factory("Alphabet", function(){
     var alphabet = [ "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
@@ -65,7 +47,7 @@ app.factory("Guess", function(){
     return guess;
 });
 
-app.controller("GameCtrl", ["$scope", "$location", "$route", "Word", "Guess", "Animations", function ($scope, $location, $route, Word, Guess, Animations){
+app.controller("WordCtrl", ["$scope", "Word", "Guess", "Animations", function ($scope, Word, Guess, Animations){
 
     $scope.word = Word;
     $scope.guess = Guess;
@@ -93,6 +75,7 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
             angular.element(element).css('top','20em');
         },
         phase4: function(element){
+            $('body').removeClass('inverse');
             angular.element(element).hide();
         },
 
@@ -103,7 +86,6 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
     $scope.flipLetter = null;
     $scope.isWordMatch;
     $scope.isLetterMatch = null; 
-    $scope.lost = false;
 
     $scope.$watchCollection('guess', function() {
 
@@ -126,14 +108,12 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "Word", "Guess", "A
         }
 
         if($scope.isWordMatch == true){
-            $location.path('/won');
+            alert('Wahoo! You haven\'t gone mad!!');
+            return;
         }
         if($scope.isLetterMatch !== true){
            $scope.isLetterMatch = false;
            Guess.incorrectLetterGuesses.push($scope.guess.letter); 
-        }
-        if($scope.lost == true){
-            $location.path('/lost');
         }
 
     });
@@ -161,7 +141,7 @@ app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
 
 }]);
 
-app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $location){
+app.directive('myDeadmanDirective', ['Guess', function (Guess){
     function link(scope,element,attrs){
         scope.deadman = angular.element(element).children('.deadman');
         scope.guess = Guess;
@@ -177,9 +157,7 @@ app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $loc
                        scope.deadState.phase3(scope.deadman);
                     } else if(scope.guess.incorrectLetterGuesses.length == 4){
                        scope.deadState.phase4(scope.deadman);
-                       //TODO make a change to root $scope.lost == true
-                       // so that you cannot go back with delete key
-                       $location.path('/lost');
+                       alert('you don\'t have what it takes!');
                     }
                 }
             }
@@ -206,6 +184,9 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
                             angular.element(element).addClass('correct');
                         } else {
                             angular.element(element).addClass('incorrect');
+                        }
+                        if(scope.guess.allLetterGuesses.length > 25){
+                            alert('hanged! game over!');
                         }
                     }
                 });
