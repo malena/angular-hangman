@@ -3,10 +3,9 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Gue
     var wordPromise = WordService.randomWord();
 
     wordPromise.success(function (word) {
-        $scope.word = word;
+        $scope.word = word.split("");
         console.log($scope.word);
     });
-
 
 
     $scope.guess = Guess;
@@ -41,6 +40,7 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Gue
 
 
     $scope.letters = angular.element($scope.word);
+    console.log($scope.letters);
     $scope.flipLetter = null;
     $scope.isWordMatch;
     $scope.isLetterMatch = null; 
