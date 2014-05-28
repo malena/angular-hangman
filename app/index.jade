@@ -5,7 +5,7 @@ html
 		link(type="text/css", rel="stylesheet", media="screen", href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css")
 		link(type="text/css", rel="stylesheet", href="public/dist/project.min.css")
 
-	body.inverse(ng-app="hangman")
+	body.inverse(ng-app="App")
 		div(ng-view)
 
 	script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
@@ -13,9 +13,23 @@ html
 	script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js")
 	script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.js")
 	script(src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/TweenMax.min.js")
+
 	script(src="app/app.js")
-	script(src="app/data.js")
+	script(src="app/services/word.js")
+
+	script(src="app/factories/guess.js")
+	script(src="app/factories/alphabet.js")
+	script(src="app/factories/animations.js")
+		
 	script(src="app/controllers/game.js")
 	script(src="app/controllers/guess.js")
 	script(src="app/controllers/alphabet.js")
 	script(src="app/controllers/deadman.js")
+
+	script(src="app/directives/myAlphabetDirective.js")
+	script(src="app/directives/myDeadmanDirective.js")
+	script(src="app/directives/myWordDirective.js")
+
+
+	script(src="test/angular-mocks.js")
+	script(src="test/app-test.js")
