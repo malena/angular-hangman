@@ -76,6 +76,7 @@ app.directive('myAlphabetDirective', ['Guess', function (Guess){
 }]);
 
 app.directive('myWordDirective', ['Guess', function(Guess){
+
     function link(scope, element, attrs) {
         scope.guess = Guess;
 
