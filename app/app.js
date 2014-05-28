@@ -1,4 +1,4 @@
-var app = angular.module("hangman", ['ngRoute']);
+var app = angular.module("App", ['ngMockE2E', 'ngRoute']);
 
 app.config(function($routeProvider){
     $routeProvider
