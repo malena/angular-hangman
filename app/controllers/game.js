@@ -1,5 +1,12 @@
 app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Guess", "Animations", function ($scope, $location, $route, WordService, Guess, Animations){
 
+    $scope.animations = Animations;
+
+    $scope.flipLetter = null;
+    $scope.isWordMatch;
+    $scope.isLetterMatch = null; 
+    $scope.lost = false;
+
     var wordPromise = WordService.randomWord();
 
     wordPromise.success(function (word) {
@@ -8,7 +15,8 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Gue
     });
 
     $scope.guess = Guess;
-    $scope.animations = Animations;
+
+    $scope.refocus = 'element'; 
 
     $scope.matchingState = {
         isLetterMatch: function (letter, word){
@@ -34,15 +42,7 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Gue
         phase4: function(element){
             angular.element(element).hide();
         },
-
-    }
-
-
-   
-    $scope.flipLetter = null;
-    $scope.isWordMatch;
-    $scope.isLetterMatch = null; 
-    $scope.lost = false;
+    };
 
     $scope.$watchCollection('guess', function() {
 
@@ -58,7 +58,6 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Gue
                     return;
                 } 
             });
-
 
             $scope.isWordMatch = _.isEqual(Guess.correctLetterGuesses, $scope.word);
             $scope.isLetterMatch = _.contains($scope.letters, $scope.guess.letter);
@@ -76,7 +75,5 @@ app.controller("GameCtrl", ["$scope", "$location", "$route", "WordService", "Gue
         }
 
     });
+    
 }]);
-
-
-
