@@ -11,7 +11,8 @@ module.exports = function(grunt) {
 				files: ['app/static/controllers/project.js'],
 				tasks: ['uglify'],
 				options: {
-					spawn: false,
+					livereload: true,
+					spawn: false
 				},
 			},
 			css: {

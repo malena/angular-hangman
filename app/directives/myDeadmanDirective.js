@@ -1,4 +1,4 @@
-app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $location){
+app.directive('myDeadmanDirective', ['Guess','$location', function (Guess, $location){
     function link(scope,element,attrs){
         scope.deadman = angular.element(element).children('.deadman');
         scope.guess = Guess;
@@ -18,6 +18,8 @@ app.directive('myDeadmanDirective', ['Guess', '$location', function (Guess, $loc
                        // so that you cannot go back with delete key
                        $location.path('/lost');
                     }
+                }
+                else {
                 }
             }
         });

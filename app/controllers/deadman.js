@@ -4,7 +4,6 @@ app.controller("DeadManCtrl", ["$scope", "Guess", function ($scope, Guess){
          if($scope.guess.letter == ""){
            return;
         } else {
-            //
         }
     });
 }]);
