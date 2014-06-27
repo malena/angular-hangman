@@ -4,10 +4,13 @@ app.factory("Animations", function(){
             alert('First Animation');
         },
         secondAnimation: function(){
-            alert('Second Animation'); 
+            alert('Second Animation');
         },
         thirdAnimation: function(){
-            alert('Third Animation'); 
+            alert('Third Animation');
+        },
+        flipCard: function(element){
+            alert(element);
         }
     }
 });

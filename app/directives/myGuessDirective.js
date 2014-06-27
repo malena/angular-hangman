@@ -4,7 +4,7 @@ app.directive('myGuessDirective', ['Guess', '$timeout', function(Guess, $timeout
 
         scope.$watchCollection('guess', function() {
             if(scope.guess.letter == ""){
-                return; 
+                return;
             } else {
                 $timeout(function(){
                     scope.guess.letter = "";

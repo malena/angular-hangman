@@ -1,20 +1,20 @@
-div.container
+.container
 	h1 Hangman
 	div
 		p To begin type your guess below.
 
-	div.game(ng-controller="GameCtrl")
-		div.btn-group
-			div.btn.well(ng-repeat="letter in letters track by $index", my-word-directive)
-				div.front(ng-if="flip", ng-bind="letter")
-				div.back(ng-if="!flip")  ?
+	.game(ng-controller="GameCtrl")
+		.letters
+			div.step(ng-repeat="letter in letters track by $index", my-word-directive, flip-toggle="true")
+				div.flippy-front.front ?
+				div.flippy-back.back(ng-bind="letter")
 
-		div.input-group(ng-controller="GuessCtrl")
+		.input-group(ng-controller="GuessCtrl")
 			input.guess(type="text", maxlength="1", value="?", autofocus, ng-model="guess.letter", my-guess-directive)
 
 		div(ng-controller="AlphabetCtrl")
 			span.alphabet(ng-repeat="char in alphabet", my-alphabet-directive){{char}}
 
-		div.dead-man(ng-controller="DeadManCtrl")
+		.dead-man(ng-controller="DeadManCtrl")
 			div.body-parts(my-deadman-directive)
 				.deadman
