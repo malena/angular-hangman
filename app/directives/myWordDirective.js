@@ -4,12 +4,7 @@ app.directive('myWordDirective', ['Guess', function(Guess){
         scope.guess = Guess;
 
         var flipCard = function() {
-            console.log('flipped');
             element.toggleClass('flipped');
-        }
-
-        if (attrs.flipToggle) {
-            element.bind('click', flipCard);
         }
 
         scope.$watchCollection('guess', function(){
@@ -17,6 +12,7 @@ app.directive('myWordDirective', ['Guess', function(Guess){
                 if(scope.guess.letter === key){
                     angular.element(element).addClass('selected');
                     scope.flip = true;
+                    flipCard();
                 }
             });
         });
