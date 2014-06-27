@@ -17,7 +17,7 @@ h1{font-size:3em;color:#fff;text-transform:uppercase;font-family:'Candal','sans-
 .btn{margin:auto auto;display:block}
 input:focus{outline:0}
 .guess{border:none;background-color:#000;font-size:60px;margin:0 0 2em 0;width:100px;height:100px;color:#fff}
-.alphabet{font-size:1em;width:20px;height:20px;padding:.3em;margin:.2em}
+.alphabet{position:relative;font-size:1em;width:20px;height:20px;padding:.3em;margin:.2em}
 .alphabet.correct{color:#fff;border:solid 1px #fff}
 .alphabet.incorrect{background-color:#f00;color:#fff;border:solid 1px #fff}
 .letters{text-align:center;width:auto;float:none;display:inline-block}
