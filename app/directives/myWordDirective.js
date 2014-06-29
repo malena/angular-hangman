@@ -4,7 +4,7 @@ app.directive('myWordDirective', ['Guess', function(Guess){
         scope.guess = Guess;
 
         var flipCard = function() {
-            element.toggleClass('flipped');
+            element.addClass('flipped');
         }
 
         scope.$watchCollection('guess', function(){
